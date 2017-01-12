@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
+
+  <script type="text/babel">
+    // var h1 = React.createElement('h1', null, [
+    //   React.createElement('span', null, React.createElement('i', null, 'Itálico')),
+    //   React.createElement('span', null, 'Texto do span 2'),
+    // ]);
+
+    // OU
+
+    // var h1 = React.DOM.h1(null, [
+    //   React.DOM.span(null, React.DOM.i(null, 'Itálico')),
+    //   React.DOM.span(null, 'Texto do span 2'),
+    // ]);
+
+    // ReactDOM.render(h1, document.getElementById('app'));
+
+    /* ----- JSX ----- */
+    // OBS: Utilizar o babel para renderização de JSX dentro do React
+    // ReactDOM.render(
+    //   <h1>Hello World</h1>,
+    //   document.getElementById('app')
+    // );
+
+    /* Criando componentes */
+
+    var Title = React.createClass({
+      render: function(){
+        return (
+          <h1>
+            <span>Hello World Title</span> 
+          </h1>
+        )
+      }
+    });
+    ReactDOM.render(
+      <Title />,
+      document.getElementById('app')
+    );
+  </script>
+</body>
+</html>

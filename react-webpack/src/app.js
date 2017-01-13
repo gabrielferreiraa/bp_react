@@ -3,21 +3,32 @@
 /* Como estou usando CommonJS precisa importar tudo o que precisa,
 não funciona global */
 import React, { Component } from 'react';
+import Timer from './timer';
 
 class App extends Component {
   constructor () {
+    console.log('constructor');
     super();
     this.state = {
-      text: 'Gabriel'
+      time: 0,
+      showTimer: true
     };
   }
 
+  componentWillMount () {
+    console.log('Executado antes do método render');
+  }
+
+  componentDidMount () {
+    console.log('Após o método render');
+  }
+
   render () {
+    console.log('render');
     return (
-      <div className='container' onClick={() => this.setState({
-        text: 'Outro text'
-      })}>
-        {this.state.text}
+      <div>
+        <Timer time={this.state.time} />
+        <button onClick={() => this.setState({ time: this.state.time + 10 })}>Change Props</button>
       </div>
     );
   }

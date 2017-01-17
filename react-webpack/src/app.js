@@ -3,7 +3,6 @@
 /* Como estou usando CommonJS precisa importar tudo o que precisa,
 não funciona global */
 import React, { Component } from 'react';
-import Timer from './timer';
 
 class App extends Component {
   constructor () {
@@ -27,8 +26,7 @@ class App extends Component {
     console.log('render');
     return (
       <div>
-        <Timer time={this.state.time} />
-        <button onClick={() => this.setState({ time: this.state.time + 10 })}>Change Props</button>
+        My App
       </div>
     );
   }

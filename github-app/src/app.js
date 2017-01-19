@@ -41,19 +41,20 @@ class App extends React.Component {
     }
   }
 
-  handleClickRepos (e) {
-    var login = document.getElementById('input').value;
-    return axios.get(`https://api.github.com/users/${login}/repos`)
-          .then(result => {
-            result = result.data;
-            console.log(result);
-            this.setState({
-              repos: [{
-                link: result.url,
-                name: result.default_branch
-              }]
-            });
+  /* Utilizando High Order Functions */
+  getRepos (type) {
+    return (e) => {
+      axios.get(`https://api.github.com/users/gabrielferreiraa/${type}`)
+        .then((result) => {
+          var data = result.data;
+          this.setState({
+            [type]: data.map((repo) => ({
+              name: repo.name,
+              link: repo.html_url
+            }))
           });
+        });
+    };
   }
 
   render () {
@@ -63,7 +64,8 @@ class App extends React.Component {
         repos={this.state.repos}
         starred={this.state.starred}
         handleSearch={(e) => this.handleSearch(e)}
-        handleClickRepos={(e) => this.handleClickRepos(e)}
+        getRepos={this.getRepos('repos')}
+        getStarred={this.getRepos('starred')}
       />
     );
   }

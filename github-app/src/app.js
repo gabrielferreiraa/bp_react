@@ -10,25 +10,17 @@ class App extends React.Component {
     this.state = {
       userinfo: null,
       repos: [],
-      starred: []
+      starred: [],
+      isFetching: false
     };
+
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
-  populateInformationsAPI (login) {
-    return axios.get(`https://api.github.com/users/${login}`)
-          .then(result => {
-            result = result.data;
-            this.setState({
-              userinfo: {
-                username: result.name,
-                photo: result.avatar_url,
-                login: result.login,
-                repos: result.public_repos,
-                followers: result.followers,
-                following: result.following
-              }
-            });
-          });
+  getGitHubApiUrl (username, type) {
+    const internalUser = username ? `/${username}` : '';
+    const internalType = type ? `/${type}` : '';
+    return `https://api.github.com/users${internalUser}${internalType}`;
   }
 
   handleSearch (e) {
@@ -37,14 +29,37 @@ class App extends React.Component {
 
     if (keyCode === ENTER) {
       const value = e.target.value;
-      this.populateInformationsAPI(value);
+      this.setState({
+        isFetching: true
+      });
+
+      return axios.get(this.getGitHubApiUrl(value))
+            .then(result => {
+              result = result.data;
+              this.setState({
+                userinfo: {
+                  username: result.name,
+                  photo: result.avatar_url,
+                  login: result.login,
+                  repos: result.public_repos,
+                  followers: result.followers,
+                  following: result.following
+                },
+                repos: [],
+                starred: []
+              });
+              this.setState({
+                isFetching: false
+              });
+            });
     }
   }
 
   /* Utilizando High Order Functions */
   getRepos (type) {
     return (e) => {
-      axios.get(`https://api.github.com/users/gabrielferreiraa/${type}`)
+      const username = this.state.userinfo.login;
+      axios.get(this.getGitHubApiUrl(username, type))
         .then((result) => {
           var data = result.data;
           this.setState({
@@ -60,10 +75,8 @@ class App extends React.Component {
   render () {
     return (
       <AppContent
-        userinfo={this.state.userinfo}
-        repos={this.state.repos}
-        starred={this.state.starred}
-        handleSearch={(e) => this.handleSearch(e)}
+        {...this.state}
+        handleSearch={this.handleSearch}
         getRepos={this.getRepos('repos')}
         getStarred={this.getRepos('starred')}
       />

@@ -1,7 +1,7 @@
 'use strict';
 
 import { expect } from 'chai';
-import map from './map';
+import map from './map-recursive';
 
 it('Método map precisa ser uma função', () => {
   expect(map).to.be.a('function');

@@ -1,3 +1,5 @@
+'use strict';
+
 const sum = (arr) => {
   if(arr.length === 0)
     return 0

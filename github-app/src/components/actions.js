@@ -1,6 +1,7 @@
 'use strict';
 
 import React, { PropTypes } from 'react';
+import '../button.css';
 
 const Actions = ({ getRepos, getStarred }) => (
   <div className='actions'>

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import axios from 'axios';
-import AppContent from './components/app-content';
+import AppContent from 'components/app-content';
 
 class App extends React.Component {
   constructor () {

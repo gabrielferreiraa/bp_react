@@ -55,7 +55,7 @@ module.exports = validate({
       test: /\.css$/,
       exclude: /node_modules/,
       include: /src/,
-      loader: extractTextPlugin.extract('style', 'css')
+      loader: extractTextPlugin.extract('style', 'css?modules')
     }]
   }
 });
